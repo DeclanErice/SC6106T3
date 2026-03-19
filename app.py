@@ -1,6 +1,8 @@
 from flask import Flask,render_template,request
+import os
 
-app = Flask(__name__, static_folder='statics', static_url_path='/static')
+# serve static files from the `static/` directory
+app = Flask(__name__, static_folder='static', static_url_path='/static')
 
 @app.route("/",methods=["GET","POST"])
 def index():
@@ -15,4 +17,5 @@ def transferMoney():
     return(render_template("transferMoney.html"))
 
 if __name__ == "__main__":
-        app.run()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
